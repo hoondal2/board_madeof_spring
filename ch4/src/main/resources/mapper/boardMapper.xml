@@ -11,6 +11,10 @@
         DELETE FROM board
     </delete>
 
+    <delete id="deleteForAdmin" parameterType="map">
+        DELETE FROM board WHERE bno = #{bno}
+    </delete>
+
     <delete id="delete" parameterType="map">
         DELETE FROM board WHERE bno = #{bno} and writer = #{writer}
     </delete>
@@ -28,6 +32,13 @@
         ORDER BY reg_date DESC, bno DESC
     </select>
 
+    <select id="selectPage" parameterType="map" resultType="BoardDto">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM board
+        ORDER BY reg_date DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
     <sql id="selectFromBoard">
         SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
         FROM board
@@ -36,12 +47,6 @@
     <select id="select" parameterType="int" resultType="BoardDto">
         <include refid="selectFromBoard"/>
         WHERE bno = #{bno}
-    </select>
-
-    <select id="selectPage" parameterType="map" resultType="BoardDto">
-        <include refid="selectFromBoard"/>
-        ORDER BY reg_date DESC, bno DESC
-        LIMIT #{offset}, #{pageSize}
     </select>
 
     <update id="update" parameterType="BoardDto">

@@ -75,6 +75,7 @@ public class LoginController {
 
         try {
             user = userDao.selectUser(id);
+            System.out.println("user = " + user);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

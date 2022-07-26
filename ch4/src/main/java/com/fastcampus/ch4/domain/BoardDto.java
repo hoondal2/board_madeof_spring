@@ -1,7 +1,6 @@
 package com.fastcampus.ch4.domain;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class BoardDto {
     private Integer bno;
@@ -32,18 +31,7 @@ public class BoardDto {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BoardDto boardDto = (BoardDto) o;
-        return Objects.equals(bno, boardDto.bno) && Objects.equals(title, boardDto.title) && Objects.equals(content, boardDto.content) && Objects.equals(writer, boardDto.writer);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(bno, title, content, writer);
-    }
 
     public Integer getBno() {
         return bno;
