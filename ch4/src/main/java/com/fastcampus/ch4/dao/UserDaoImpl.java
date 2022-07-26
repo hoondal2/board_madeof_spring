@@ -61,6 +61,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+
     // 사용자 정보를 user_info테이블에 저장하는 메서드
     @Override
     public int insertUser(User user) throws Exception {

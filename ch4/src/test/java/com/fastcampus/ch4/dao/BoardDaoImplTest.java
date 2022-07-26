@@ -6,7 +6,9 @@ import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -16,6 +18,7 @@ import static org.junit.Assert.*;
 public class BoardDaoImplTest {
     @Autowired
     private BoardDao boardDao;
+
 
     @Test
     public void insertTestData() throws Exception{

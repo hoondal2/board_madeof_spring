@@ -23,6 +23,12 @@
   </ul>
 </div>
 
+<script>
+  let msg = "${msg}"
+  if(msg=="success") alert("삭제가 완료되었습니다.");
+  if(msg=="error") alert("삭제에 실패했습니다.");
+</script>
+
 <div style="text-align:center">
 
   <table border="1">
@@ -37,7 +43,7 @@
     <c:forEach var="boardDto" items="${list}">
       <tr>
         <td>${boardDto.bno}</td>
-        <td>${boardDto.title}</td>
+        <td><a href="<c:url value='/board/read?bno=${boardDto.bno}&page=${page}&pageSize=${pageSize}'/>">${boardDto.title}</a></td>
         <td>${boardDto.writer}</td>
         <td>${boardDto.reg_date}</td>
         <td>${boardDto.view_cnt}</td>
