@@ -22,14 +22,17 @@
     <li><a href=""><i class="fas fa-search small"></i></a></li>
   </ul>
 </div>
-
+<script>
+  let msg="${msg}";
+  if(msg=="WRT_ERROR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
+</script>
 <div style="text-align:center">
-  <h2 class="writing-header">게시물 읽기</h2>
+  <h2 class="writing-header">게시물 ${mode=="new" ? "글쓰기" : "읽기"}</h2>
   <form id="form" action="" >
-    <input type="text" name="bno" value="${boardDto.bno}">
-    <input name="title" type="text" value="${boardDto.title}" readonly = "readonly">
+    <input type="hidden" name="bno" value="${boardDto.bno}">
+    <input name="title" type="text" value="${boardDto.title}" ${mode=="new" ?'' : 'readonly="readonly"'}>
     <br>
-    <textarea name="content" rows="20" readonly = "readonly">${boardDto.content}</textarea>
+    <textarea name="content" rows="20" ${mode=="new" ?'' : 'readonly="readonly"'}>${boardDto.content}</textarea>
     <br>
       <button type="button" id="writeBtn" class="btn btn-write">등록</button>
       <button type="button" id="modifyBtn" class="btn btn-modify">수정</button>
@@ -42,9 +45,14 @@
     $('#listBtn').on("click", function(){
       location.href="<c:url value='/board/list'/>?page=${page}&pageSize=${pageSize}";
     })
-  })
 
-  $(document).ready(function(){ // main()
+    $('#writeBtn').on("click", function(){
+      let form = $('#form');
+      form.attr("action", "<c:url value='/board/write'/>");
+      form.attr("method", "post");
+      form.submit();
+    })
+
     $('#removeBtn').on("click", function(){
       if(!confirm("정말로 삭제하시겠습니까?")) return;
       let form = $('#form');
@@ -52,7 +60,29 @@
       form.attr("method", "post");
       form.submit();
     })
+
+    $('#modifyBtn').on("click", function(){
+      // 1. 읽기 상태이면 수정 상태로 변경
+      let form = $('#form');
+      let isReadOnly = $("input[name=title]").attr('readonly');
+
+      if(isReadOnly == 'readonly') {
+        $("input[name=title]").attr('readonly', false);
+        $("textarea").attr('readonly', false);
+        $("#modifyBtn").html("등록");
+        $("h2").html("게시물 수정");
+        return;
+      }
+
+        // 2. 수정 상태이면, 수정된 내용을 서버로 전송
+        form.attr("action", "<c:url value='/board/modify'/>");
+        form.attr("method", "post");
+        form.submit();
+
+    })
+
   })
+
 </script>
 </body>
 </html>

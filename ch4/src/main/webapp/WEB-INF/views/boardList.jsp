@@ -27,9 +27,12 @@
   let msg = "${msg}"
   if(msg=="success") alert("삭제가 완료되었습니다.");
   if(msg=="error") alert("삭제에 실패했습니다.");
+  if(msg=="WRT_OK") alert("등록이 완료되었습니다.");
+
 </script>
 
-<div style="text-align:center">
+<div style="...">
+  <button type="button" id="writeBtn" onclick="location.href='<c:url value="/board/write"/>'">글쓰기</button>
 
   <table border="1">
     <tr>
