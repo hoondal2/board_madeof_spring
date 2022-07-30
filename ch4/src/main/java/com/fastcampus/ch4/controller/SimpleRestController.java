@@ -11,6 +11,11 @@ public class SimpleRestController {
         return "test";
     }
 
+    @GetMapping("/comment")
+    public String comment() {
+        return "comment";
+    }
+
     @GetMapping("/ajax")
     public String ajax() {
         return "ajax";
